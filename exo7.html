@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - Site E-Commerce</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .radio-group {
+            margin-bottom: 15px;
+        }
+        .radio-option {
+            margin-right: 15px;
+            display: inline-block;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .obligatoire {
+            color: red;
+        }
+        .message-succes {
+            padding: 10px;
+            background-color: #dff0d8;
+            border: 1px solid #d6e9c6;
+            color: #3c763d;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Inscription</h1>
+        <div id="message-succes" class="message-succes">
+            Votre inscription a été enregistrée avec succès !
+        </div>
+        <form id="formulaireInscription" method="post" action="#">
+            <div class="form-group">
+                <label for="civilite">Civilité <span class="obligatoire">*</span></label>
+                <div class="radio-group" id="civilite">
+                    <div class="radio-option">
+                        <input type="radio" id="monsieur" name="civilite" value="M">
+                        <label for="monsieur">Monsieur</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="madame" name="civilite" value="Mme">
+                        <label for="madame">Madame</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="nom">Nom <span class="obligatoire">*</span></label>
+                <input type="text" id="nom" name="nom" placeholder="Votre nom">
+            </div>
+            
+            <div class="form-group">
+                <label for="prenom">Prénom <span class="obligatoire">*</span></label>
+                <input type="text" id="prenom" name="prenom" placeholder="Votre prénom">
+            </div>
+            
+            <div class="form-group">
+                <label for="adresse">Adresse <span class="obligatoire">*</span></label>
+                <textarea id="adresse" name="adresse" rows="3" placeholder="Votre adresse complète"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="telephone">Téléphone <span class="obligatoire">*</span></label>
+                <input type="tel" id="telephone" name="telephone" placeholder="Ex: 0123456789 ou +33 123456789">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email <span class="obligatoire">*</span></label>
+                <input type="email" id="email" name="email" placeholder="exemple@domaine.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="pays">Pays <span class="obligatoire">*</span></label>
+                <select id="pays" name="pays">
+                    <option value="default">Sélectionnez votre pays</option>
+                    <option value="FR">France</option>
+                    <option value="BE">Belgique</option>
+                    <option value="CH">Suisse</option>
+                    <option value="CA">Canada</option>
+                    <option value="LU">Luxembourg</option>
+                    <option value="MA">Maroc</option>
+                    <option value="TN">Tunisie</option>
+                    <option value="DZ">Algérie</option>
+                    <option value="SN">Sénégal</option>
+                    <option value="CI">Côte d'Ivoire</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="login">Login <span class="obligatoire">*</span></label>
+                <input type="text" id="login" name="login" placeholder="Votre identifiant de connexion">
+            </div>
+            
+            <div class="form-group">
+                <label for="motDePasse">Mot de passe <span class="obligatoire">*</span></label>
+                <input type="password" id="motDePasse" name="motDePasse">
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmerMotDePasse">Confirmer mot de passe <span class="obligatoire">*</span></label>
+                <input type="password" id="confirmerMotDePasse" name="confirmerMotDePasse">
+            </div>
+            
+            <button type="submit">S'inscrire</button>
+        </form>
+    </div>
+
+    <script>
+        // Fonction de validation du formulaire
+        function validerFormulaire(event) {
+            // Empêcher l'envoi du formulaire par défaut
+            event.preventDefault();
+            
+            // Réinitialiser les messages d'erreur
+            effacerMessagesErreur();
+            
+            // Récupérer les valeurs des champs
+            const nom = document.getElementById('nom').value.trim();
+            const prenom = document.getElementById('prenom').value.trim();
+            const adresse = document.getElementById('adresse').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const login = document.getElementById('login').value.trim();
+            const motDePasse = document.getElementById('motDePasse').value;
+            const confirmerMotDePasse = document.getElementById('confirmerMotDePasse').value;
+            const telephone = document.getElementById('telephone').value.trim();
+            const civilite = document.querySelector('input[name="civilite"]:checked');
+            const pays = document.getElementById('pays').value;
+            
+            let estValide = true;
+            
+            // Vérifier les champs obligatoires
+            if (!nom) {
+                afficherErreur('nom', 'Le nom est obligatoire');
+                estValide = false;
+            }
+            
+            if (!prenom) {
+                afficherErreur('prenom', 'Le prénom est obligatoire');
+                estValide = false;
+            }
+            
+            if (!adresse) {
+                afficherErreur('adresse', 'L\'adresse est obligatoire');
+                estValide = false;
+            }
+            
+            if (!login) {
+                afficherErreur('login', 'Le login est obligatoire');
+                estValide = false;
+            }
+            
+            if (!motDePasse) {
+                afficherErreur('motDePasse', 'Le mot de passe est obligatoire');
+                estValide = false;
+            }
+            
+            if (!confirmerMotDePasse) {
+                afficherErreur('confirmerMotDePasse', 'La confirmation du mot de passe est obligatoire');
+                estValide = false;
+            }
+            
+            if (!civilite) {
+                afficherErreur('civilite', 'La civilité est obligatoire');
+                estValide = false;
+            }
+            
+            if (!pays || pays === "default") {
+                afficherErreur('pays', 'Le pays est obligatoire');
+                estValide = false;
+            }
+            
+            // Vérifier l'email avec regex
+            const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!email) {
+                afficherErreur('email', 'L\'email est obligatoire');
+                estValide = false;
+            } else if (!regexEmail.test(email)) {
+                afficherErreur('email', 'Format d\'email invalide');
+                estValide = false;
+            }
+            
+            // Vérifier le téléphone avec regex
+            const regexTelephone = /^(\+\d{1,3}\s?)?(\d{10})$/;
+            if (!telephone) {
+                afficherErreur('telephone', 'Le numéro de téléphone est obligatoire');
+                estValide = false;
+            } else if (!regexTelephone.test(telephone)) {
+                afficherErreur('telephone', 'Format de téléphone invalide (ex: +33 1234567890 ou 0123456789)');
+                estValide = false;
+            }
+            
+            // Vérifier que les mots de passe correspondent
+            if (motDePasse !== confirmerMotDePasse) {
+                afficherErreur('confirmerMotDePasse', 'Les mots de passe ne correspondent pas');
+                estValide = false;
+            }
+            
+            // Si le formulaire est valide, afficher le message de succès
+            if (estValide) {
+                // Dans un cas réel, on soumettrait le formulaire ici
+                // document.getElementById('formulaireInscription').submit();
+                
+                // Pour la démo, on affiche juste un message de succès
+                document.getElementById('message-succes').style.display = 'block';
+                window.scrollTo(0, 0);
+            }
+            
+            return estValide;
+        }
+
+        // Fonction pour afficher un message d'erreur
+        function afficherErreur(champ, message) {
+            const element = document.getElementById(champ);
+            const erreurDiv = document.createElement('div');
+            erreurDiv.className = 'message-erreur';
+            erreurDiv.innerText = message;
+            erreurDiv.style.color = 'red';
+            erreurDiv.style.fontSize = '12px';
+            erreurDiv.style.marginTop = '5px';
+            
+            // Insérer après l'élément
+            if (element.nextSibling) {
+                element.parentNode.insertBefore(erreurDiv, element.nextSibling);
+            } else {
+                element.parentNode.appendChild(erreurDiv);
+            }
+            
+            // Mettre en évidence le champ avec une bordure rouge
+            element.style.borderColor = 'red';
+        }
+
+        // Fonction pour effacer tous les messages d'erreur
+        function effacerMessagesErreur() {
+            // Masquer le message de succès s'il est affiché
+            document.getElementById('message-succes').style.display = 'none';
+            
+            // Supprimer tous les messages d'erreur
+            const messagesErreur = document.querySelectorAll('.message-erreur');
+            messagesErreur.forEach(msg => msg.remove());
+            
+            // Réinitialiser les bordures des champs
+            const champs = document.querySelectorAll('input, select, textarea');
+            champs.forEach(champ => champ.style.borderColor = '');
+        }
+
+        // Attacher la fonction de validation à l'événement de soumission du formulaire
+        document.addEventListener('DOMContentLoaded', function() {
+            const formulaire = document.getElementById('formulaireInscription');
+            if (formulaire) {
+                formulaire.addEventListener('submit', validerFormulaire);
+            }
+        });
+    </script>
+</body>
+</html>

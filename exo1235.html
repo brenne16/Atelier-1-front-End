@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateurs Mathématiques</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        button {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #b5f5d4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #3255c0;
+        }
+        .buttons-container {
+            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        #resultat {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculateurs Mathématiques</h1>
+    
+    <div class="buttons-container">
+        <button onclick="calculerPGCD()">Calculer le PGCD</button>
+        <button onclick="calculerSommeChiffres()">Calculer la somme des chiffres</button>
+        <button onclick="afficherTableMultiplication()">Afficher une table de multiplication</button>
+        <button onclick="convertirDecimalVersBinaire()">Convertir décimal en binaire</button>
+    </div>
+    
+    <div id="resultat"></div>
+
+    <script>
+        // Fonction qui calcule le PGCD de deux nombres
+        function calculerPGCD() {
+            // Demande à l'utilisateur de saisir le premier nombre
+            const nombre1 = prompt("Entrez le premier nombre entier :");
+            
+            // Vérifie si l'utilisateur a saisi quelque chose et si c'est un nombre entier valide
+            if (nombre1 === null || nombre1 === "" || isNaN(nombre1) || !Number.isInteger(parseFloat(nombre1))) {
+                document.getElementById("resultat").innerHTML = "Veuillez entrer un nombre entier valide.";
+                return;
+            }
+            
+            // Demande à l'utilisateur de saisir le deuxième nombre
+            const nombre2 = prompt("Entrez le deuxième nombre entier :");
+            
+            // Vérifie si l'utilisateur a saisi quelque chose et si c'est un nombre entier valide
+            if (nombre2 === null || nombre2 === "" || isNaN(nombre2) || !Number.isInteger(parseFloat(nombre2))) {
+                document.getElementById("resultat").innerHTML = "Veuillez entrer un nombre entier valide.";
+                return;
+            }
+            
+            // Convertit les saisies en nombres entiers
+            let a = Math.abs(parseInt(nombre1));
+            let b = Math.abs(parseInt(nombre2));
+            
+            // Calcule le PGCD en utilisant l'algorithme d'Euclide
+            const pgcd = calculPGCD(a, b);
+            
+            // Affiche le résultat
+            document.getElementById("resultat").innerHTML = `
+                <h2>Résultat du calcul du PGCD</h2>
+                <p>Le PGCD de ${a} et ${b} est : <strong>${pgcd}</strong></p>
+            `;
+        }
+        
+        // Fonction qui implémente l'algorithme d'Euclide pour calculer le PGCD
+        function calculPGCD(a, b) {
+            // Cas particulier : si l'un des nombres est 0, le PGCD est l'autre nombre
+            if (a === 0) return b;
+            if (b === 0) return a;
+            
+            // Application de l'algorithme d'Euclide
+            while (b !== 0) {
+                let temp = b;
+                b = a % b;
+                a = temp;
+            }
+            
+            return a;
+        }
+        
+        // Fonction qui calcule la somme des chiffres d'un nombre entier
+        function calculerSommeChiffres() {
+            // Demande à l'utilisateur de saisir un nombre
+            const nombre = prompt("Entrez un nombre entier :");
+            
+            // Vérifie si l'utilisateur a saisi quelque chose et si c'est un nombre entier valide
+            if (nombre === null || nombre === "" || isNaN(nombre) || !Number.isInteger(parseFloat(nombre))) {
+                document.getElementById("resultat").innerHTML = "Veuillez entrer un nombre entier valide.";
+                return;
+            }
+            
+            // Convertit la saisie en chaîne de caractères pour pouvoir traiter chaque chiffre
+            const nombreStr = nombre.toString();
+            
+            // Calcule la somme des chiffres
+            let somme = 0;
+            for (let i = 0; i < nombreStr.length; i++) {
+                // Si le caractère est un chiffre (vérifie aussi le signe négatif)
+                if (!isNaN(parseInt(nombreStr[i]))) {
+                    somme += parseInt(nombreStr[i]);
+                }
+            }
+            
+            // Affiche le résultat
+            document.getElementById("resultat").innerHTML = `
+                <h2>Résultat du calcul de la somme des chiffres</h2>
+                <p>La somme des chiffres de ${nombre} est : <strong>${somme}</strong></p>
+                <p>Détail : ${nombreStr.split('').join(' + ')} = ${somme}</p>
+            `;
+        }
+        
+        // Fonction qui affiche la table de multiplication
+        function afficherTableMultiplication() {
+            // Demande à l'utilisateur de saisir un nombre
+            const nombre = prompt("Entrez un nombre pour afficher sa table de multiplication :");
+            
+            // Vérifie si l'utilisateur a saisi quelque chose et si c'est un nombre valide
+            if (nombre === null || nombre === "" || isNaN(nombre)) {
+                document.getElementById("resultat").innerHTML = "Veuillez entrer un nombre valide.";
+                return;
+            }
+            
+            // Convertit la saisie en nombre
+            const n = parseFloat(nombre);
+            
+            // Crée le contenu HTML pour afficher la table de multiplication
+            let contenu = `<h2>Table de multiplication de ${n}</h2>`;
+            contenu += "<ul>";
+            
+            // Génère les 10 lignes de la table de multiplication
+            for (let i = 1; i <= 10; i++) {
+                contenu += `<li>${n} × ${i} = ${n * i}</li>`;
+            }
+            
+            contenu += "</ul>";
+            
+            // Affiche le résultat dans la div "resultat"
+            document.getElementById("resultat").innerHTML = contenu;
+        }
+        
+        // Fonction récursive pour convertir un nombre décimal en binaire
+        function decimalToBinaryRecursive(n) {
+            // Cas de base : si le nombre est 0 ou 1, retourne le nombre lui-même
+            if (n === 0 || n === 1) {
+                return n.toString();
+            }
+            
+            // Calcul récursif : on ajoute le reste de la division par 2 à la conversion binaire du quotient
+            return decimalToBinaryRecursive(Math.floor(n / 2)) + (n % 2).toString();
+        }
+        
+        // Fonction qui gère l'interface utilisateur pour la conversion décimal-binaire
+        function convertirDecimalVersBinaire() {
+            // Demande à l'utilisateur de saisir un nombre décimal
+            const nombre = prompt("Entrez un nombre décimal à convertir en binaire :");
+            
+            // Vérifie si l'utilisateur a saisi quelque chose et si c'est un nombre entier valide
+            if (nombre === null || nombre === "" || isNaN(nombre) || !Number.isInteger(parseFloat(nombre))) {
+                document.getElementById("resultat").innerHTML = "Veuillez entrer un nombre entier valide.";
+                return;
+            }
+            
+            // Convertit la saisie en nombre entier non négatif
+            const n = Math.abs(parseInt(nombre));
+            
+            // Cas particulier pour 0
+            if (n === 0) {
+                document.getElementById("resultat").innerHTML = `
+                    <h2>Conversion Décimal → Binaire</h2>
+                    <p>${nombre} en binaire est : <strong>0</strong></p>
+                `;
+                return;
+            }
+            
+            // Appelle la fonction récursive pour convertir le nombre en binaire
+            const binaire = decimalToBinaryRecursive(n);
+            
+            // Affiche le résultat
+            document.getElementById("resultat").innerHTML = `
+                <h2>Conversion Décimal → Binaire</h2>
+                <p>${nombre} en binaire est : <strong>${binaire}</strong></p>
+                <p>Nombre de bits : ${binaire.length}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
